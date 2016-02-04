@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 
 public class Solution
 {
+    //from home 22:54
     public static void main(String[] args) throws Exception
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
