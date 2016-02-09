@@ -22,6 +22,12 @@ import java.util.ArrayList;
 
 public class Solution
 {
+
+    public static void printArray(int ma[])
+    {
+        for (int i : ma) System.out.print(i + " ");
+    }
+
     public static void main(String[] args) throws Exception
     {
         BufferedReader reader  = new BufferedReader(new InputStreamReader(System.in));
@@ -34,16 +40,19 @@ public class Solution
 
         for (int i = 0; i < 5 ; i++)
         {
-            for (int j = i + 1; j < 5 ; j++)
+            for (int j = 0; j < (5 - i - 1); j++)
             {
                 int tmp = ma[i];
-                if (ma[i] > ma[j])
+                if (ma[j] > ma[j + 1])
                 {
-                    int tmpVar = ma[i];
-                    ma[i] = ma[j];
-                    ma[j] = tmpVar;
+                    int tmpVar = ma[j];
+                    ma[j] = ma[j + 1];
+                    ma[j + 1] = tmpVar;
                 }
             }
+
+            printArray(ma);
+            System.out.println("");
 
         }
 
