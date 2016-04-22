@@ -51,7 +51,7 @@ import java.util.List;
 Метод main в тестировании не участвует
 */
 public class Solution {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<String> list = new Solution();
         for (int i = 1; i < 16; i++) {
             list.add(String.valueOf(i));
@@ -64,5 +64,5 @@ public class Solution {
     public String getParent(String value) {
         //have to be implemented
         return null;
-    }
+    }*/
 }
