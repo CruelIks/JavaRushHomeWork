@@ -5,6 +5,7 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
 /**
  * Created by Prog on 20.04.2016.
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
 public class ConsoleHelper
 {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + "common_en");
 
     public static void writeMessage(String message)
     {
@@ -40,7 +42,7 @@ public class ConsoleHelper
     {
 
         String code = "";
-        writeMessage("enter currency code (3 num's):");
+        writeMessage(res.getString("choose.currency.code"));
 
         while (true)
         {
@@ -48,7 +50,7 @@ public class ConsoleHelper
 
             if (code.length() != 3)
             {
-                writeMessage("bad code. try again");
+                writeMessage(res.getString("invalid.data"));
             } else break;
 
         }
@@ -60,7 +62,7 @@ public class ConsoleHelper
     {
 
         String[] array;
-        writeMessage("enter DENOMINATION and COUNT:");
+        writeMessage(res.getString("choose.denomination.and.count.format"));
         while (true)
         {
 
@@ -79,18 +81,23 @@ public class ConsoleHelper
 
             }
             catch (Exception e){
-                writeMessage("incorrect data found. try again");
+                writeMessage(res.getString("invalid.data"));
             }
 
-            writeMessage("incorrect data found. try again");
+            writeMessage(res.getString("invalid.data"));
         }
 
         return array;
     }
 
+    public static void printExitMessage(){
+
+        writeMessage(res.getString("the.end"));
+    }
     public static Operation askOperation() throws InterruptOperationException{
 
-        writeMessage("select operation: 1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
+        writeMessage(res.getString("choose.operation"));
+        writeMessage("1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT");
         String str;
         Operation result;
 
@@ -106,12 +113,12 @@ public class ConsoleHelper
             }
             catch (NumberFormatException e)
             {
-                writeMessage("bad data try again");
+                writeMessage(res.getString("invalid.data"));
                 continue;
             }
             catch (IllegalArgumentException e)
             {
-                writeMessage("bad data try again");
+                writeMessage(res.getString("invalid.data"));
                 continue;
             }
         }
