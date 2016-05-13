@@ -8,9 +8,13 @@ package com.javarush.test.level27.lesson06.task01;
 */
 public class Solution {
     public void safeMethod(Object obj1, Object obj2) {
-        synchronized (obj1) {
+
+        Object maxObj = obj1.hashCode() > obj2.hashCode() ? obj1 : obj2;
+        Object minObj = obj1.equals(maxObj) ? obj2 : obj1;
+
+        synchronized (maxObj) {
             longTimeMethod();
-            synchronized (obj2) {
+            synchronized (minObj) {
                 unsafeMethod(obj1, obj2);
             }
         }
