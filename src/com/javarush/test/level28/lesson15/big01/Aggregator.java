@@ -1,8 +1,8 @@
 package com.javarush.test.level28.lesson15.big01;
 
-import com.javarush.test.level28.lesson15.big01.model.HHStrategy;
-import com.javarush.test.level28.lesson15.big01.model.Provider;
-import com.javarush.test.level28.lesson15.big01.model.Strategy;
+import com.javarush.test.level28.lesson15.big01.model.*;
+import com.javarush.test.level28.lesson15.big01.view.HtmlView;
+import com.javarush.test.level28.lesson15.big01.view.View;
 
 /**
  * Created by Prog on 12.05.2016.
@@ -11,12 +11,16 @@ public class Aggregator
 {
     public static void main(String args[]){
 
-        Provider provider = new Provider(new HHStrategy());
-        Controller controller = new Controller(provider);
+        HtmlView view = new HtmlView();
 
-        controller.scan();
+        Provider[] providers = new Provider[2];
+        providers[0] = new Provider(new HHStrategy());
+        providers[1] = new Provider(new MoikrugStrategy());
 
+        Model model = new Model(view, providers);
+        Controller controller = new Controller(model);
 
-
+        view.setController(controller);
+        view.userCitySelectEmulationMethod();
     }
 }

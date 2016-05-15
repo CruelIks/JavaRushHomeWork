@@ -22,9 +22,6 @@ public class HHStrategy implements Strategy
     @Override
     public List<Vacancy> getVacancies(String searchString)
     {
-
-        /*String url = String.format(URL_FORMAT, "Kiev", 1);*/
-       /* String url = "http://javarush.ru/testdata/big28data.html";*/
         List<Vacancy> allVacancy = new ArrayList<>();
 
         try
@@ -34,8 +31,7 @@ public class HHStrategy implements Strategy
             while (true)
             {
 
-                Document doc = getDocument("Kiev", count);
-                System.out.println("getting page # " + count);
+                Document doc = getDocument(searchString, count);
 
                 String selector = "[data-qa=vacancy-serp__vacancy]";
                 Elements elements = doc.select(selector);
