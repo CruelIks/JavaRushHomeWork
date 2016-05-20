@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class HHStrategy implements Strategy
 {
-    private static final String URL_FORMAT = "http://hh.ua/search/vacancy?text=java+%s&page=%d";
+    private static final String URL_FORMAT = "http://hh.ru/search/vacancy?text=java+%s&page=%d";
     private static final String USER_AGENT = "Mozilla/5.0 (jsoup)";
     private static final int TIMEOUT = 5 * 1000;
 
@@ -80,6 +80,7 @@ public class HHStrategy implements Strategy
         {
 
         }
+        catch (NullPointerException e) {}
 
 
         return allVacancy;
