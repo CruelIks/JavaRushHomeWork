@@ -1,5 +1,6 @@
 package com.javarush.test.level20.lesson10.bonus04;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /* Свой список
@@ -50,8 +51,8 @@ import java.util.List;
 Должно быть наследование AbstractList<String>, List<String>, Cloneable, Serializable
 Метод main в тестировании не участвует
 */
-public class Solution {
-    /*public static void main(String[] args) {
+public class Solution extends LinkedList{
+    public static void main(String[] args) {
         List<String> list = new Solution();
         for (int i = 1; i < 16; i++) {
             list.add(String.valueOf(i));
@@ -64,5 +65,5 @@ public class Solution {
     public String getParent(String value) {
         //have to be implemented
         return null;
-    }*/
+    }
 }

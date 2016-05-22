@@ -31,39 +31,30 @@ public class Student extends UniversityPerson {
         return course;
     }
 
-
-
-    public void printData() {
-        System.out.println("Студент: " + name);
-    }
-
-    public void incAverageGradeBy01()
+    @Override
+    public String getPosition()
     {
-        averageGrade += 0.1;
+        return "Студент";
     }
 
-    public void incAverageGradeBy02()
-    {
-        averageGrade += 0.2;
+    public void incAverageGrade(double delta){
+        averageGrade += delta;
     }
 
-    public void setValue(String name, double value) {
-        if (name.equals("averageGrade")) {
-            averageGrade = value;
-            return;
-        }
-        if (name.equals("course")) {
-            course = (int)value;
-            return;
-        }
+    public void setCourse(int value){
+        this.course = value;
+    }
+
+    public void setAverageGrade(double value){
+        this.averageGrade = value;
     }
     
-    public void setBeginningOfSession(int day, int month, int year) {
-        beginningOfSession = new Date(year, month, day);
+    public void setBeginningOfSession(Date date) {
+        beginningOfSession = date;
     }
 
-    public void setEndOfSession(int day, int month, int year) {
-        endOfSession = new Date(year, month, day);
+    public void setEndOfSession(Date date) {
+        endOfSession = date;
     }
 
     public double getAverageGrade() {

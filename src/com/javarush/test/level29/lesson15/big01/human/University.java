@@ -1,6 +1,7 @@
 package com.javarush.test.level29.lesson15.big01.human;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class University
@@ -46,20 +47,60 @@ public class University
         this.students = students;
     }
 
-    public Student getStudentWithAverageGrade()
+    public Student getStudentWithAverageGrade(double averageGrade)
     {
         //TODO:
+        for (Student student : students){
+            if (student.getAverageGrade() == averageGrade){
+                return student;
+            }
+        }
+
         return null;
     }
 
-    public Student getStudentWithMaxAverageGrade(double averageGrade)
+    public Student getStudentWithMaxAverageGrade()
     {
-        //TODO:
-        return null;
+        Student result = null;
+        double max = 0;
+
+        for (Student student : students){
+
+            if (student.getAverageGrade() > max){
+                max = student.getAverageGrade();
+                result = student;
+            }
+        }
+        return result;
     }
 
     public void getStudentWithMinAverageGradeAndExpel()
     {
         //TODO:
+        expel(getStudentWithMinAverageGrade());
+    }
+
+    public Student getStudentWithMinAverageGrade() {
+
+        if (students.size() == 0) return null;
+
+        Student result = students.get(0);
+        double min = students.get(0).getAverageGrade();
+
+        for (Student student : students){
+            if (student.getAverageGrade() < min){
+                min = student.getAverageGrade();
+                result = student;
+            }
+        }
+
+        return result;
+    }
+
+    public void expel(Student student){
+        if (student == null) return;
+        if (!students.contains(student)) return;
+
+        students.remove(student);
     }
 }
