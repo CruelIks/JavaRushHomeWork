@@ -22,5 +22,7 @@ public class TestHuman
         System.out.println(nngu.getStudentWithMaxAverageGrade().getName() + " has max grade");
         System.out.println(nngu.getStudentWithMinAverageGrade().getName() + " has min grade");
 
+
+
     }
 }

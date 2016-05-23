@@ -1,7 +1,6 @@
 package com.javarush.test.level29.lesson15.big01.human;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class University
