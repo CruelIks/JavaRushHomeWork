@@ -6,6 +6,7 @@ import com.javarush.test.level30.lesson15.big01.Message;
 import com.javarush.test.level30.lesson15.big01.MessageType;
 
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Created by Prog on 27.05.2016.
@@ -118,15 +119,18 @@ public class Client
         }
 
         String txt = null;
-        while (clientConnected){
+        while (clientConnected)
+        {
 
             txt = ConsoleHelper.readString();
 
-            if (txt.equals("exit")) {
+            if (txt.equals("exit"))
+            {
                 break;
             }
 
-            if (shouldSentTextFromConsole()){
+            if (shouldSentTextFromConsole())
+            {
                 sendTextMessage(txt);
             }
 
@@ -136,7 +140,8 @@ public class Client
 
     }
 
-    public static void main(String args[]){
+    public static void main(String args[])
+    {
 
         new Client().run();
 
@@ -145,32 +150,101 @@ public class Client
     public class SocketThread extends Thread
     {
 
+        @Override
+        public void run()
+        {
+            String serverAddress = getServerAddress();
+            int serverPort = getServerPort();
 
-        protected void processIncomingMessage(String message) {
+            try
+            {
+                Socket socket = new Socket(serverAddress, serverPort);
+                connection = new Connection(socket);
+                clientHandshake();
+                clientMainLoop();
+
+            }
+            catch (IOException e)
+            {
+               notifyConnectionStatusChanged(false);
+            }
+            catch (ClassNotFoundException e)
+            {
+                notifyConnectionStatusChanged(false);
+            }
+        }
+
+        protected void processIncomingMessage(String message)
+        {
             ConsoleHelper.writeMessage(message);
         }
 
-        protected void informAboutAddingNewUser(String userName){
+        protected void informAboutAddingNewUser(String userName)
+        {
             ConsoleHelper.writeMessage(userName + " вошел в чат");
         }
 
-        protected void informAboutDeletingNewUser(String userName){
+        protected void informAboutDeletingNewUser(String userName)
+        {
             ConsoleHelper.writeMessage(userName + " уходит из чата");
         }
 
-        protected void notifyConnectionStatusChanged(boolean clientConnected){
+        protected void notifyConnectionStatusChanged(boolean clientConnected)
+        {
 
             Client.this.clientConnected = clientConnected;
-            synchronized (Client.this){
+            synchronized (Client.this)
+            {
                 Client.this.notify();
             }
         }
 
-        protected void clientHandshake() throws IOException, ClassNotFoundException{
+        protected void clientHandshake() throws IOException, ClassNotFoundException
+        {
 
-            Message message = connection.receive();
-            if (message.getType() == MessageType.NAME_REQUEST){
+            while (true)
+            {
+                Message message = connection.receive();
+                if (message.getType() == MessageType.NAME_REQUEST)
+                {
 
+                    String userName = getUserName();
+                    connection.send(new Message(MessageType.USER_NAME, userName));
+
+                } else if (message.getType() == MessageType.NAME_ACCEPTED)
+                {
+                    notifyConnectionStatusChanged(true);
+                    return;
+                } else
+                    throw new IOException("Unexpected MessageType");
+            }
+        }
+
+        protected void clientMainLoop() throws IOException, ClassNotFoundException
+        {
+
+            while (true)
+            {
+                Message message = connection.receive();
+                MessageType type = message.getType();
+
+
+                if (message.getType() == MessageType.TEXT){
+                    processIncomingMessage(message.getData());
+                }
+
+                else if (message.getType() == MessageType.USER_ADDED){
+                    informAboutAddingNewUser(message.getData());
+                }
+
+                else if (message.getType() == MessageType.USER_REMOVED){
+                    informAboutDeletingNewUser(message.getData());
+                }
+
+                else
+                {
+                    throw new IOException("Unexpected MessageType");
+                }
             }
 
         }
