@@ -2,10 +2,12 @@
   <library name="jsoup-1.9.1-sources">
     <CLASSES>
       <root url="jar://I:/jsoup/jsoup-1.9.1.jar!/" />
+      <root url="jar://D:/WORK/jsoup/jsoup-1.9.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://I:/jsoup/jsoup-1.9.1-sources.jar!/" />
+      <root url="jar://D:/WORK/jsoup/jsoup-1.9.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
