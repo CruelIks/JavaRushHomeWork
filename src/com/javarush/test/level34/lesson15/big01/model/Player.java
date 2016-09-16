@@ -1,0 +1,31 @@
+package com.javarush.test.level34.lesson15.big01.model;
+
+import java.awt.*;
+
+/**
+ * Created by Prog on 15.09.2016.
+ */
+public class Player extends CollisionObject implements Movable
+{
+
+    public Player(int x, int y)
+    {
+        super(x, y);
+    }
+
+    @Override
+    public void draw(Graphics graphics)
+    {
+        //graphics.drawOval(getX(), getY(), getWidth(), getHeight());
+        graphics.setColor(new Color(255, 255, 0));
+        graphics.fillOval(getX(), getY(), getWidth(), getHeight());
+
+    }
+
+    @Override
+    public void move(int x, int y)
+    {
+        setX(getX() + x);
+        setY(getY() + y);
+    }
+}
